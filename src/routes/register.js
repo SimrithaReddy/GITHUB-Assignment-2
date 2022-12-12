@@ -1,5 +1,4 @@
 const express = require('express')
-const user = require('../models/user')
 const bodyparser = require('body-parser')
 const bcrypt = require('bcrypt');
 const users = require('../models/user');

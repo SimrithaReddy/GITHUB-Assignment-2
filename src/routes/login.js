@@ -26,7 +26,7 @@ router.post("/login",
 
             const { email, password } = req.body;
 
-            let user_data = await users.findOne({ email })
+            let user_data = await users.findOne({  email })
 
             if (!user_data) {
                 return res.json({

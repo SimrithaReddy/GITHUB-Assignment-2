@@ -4,10 +4,8 @@ const user_posts = require('../models/post');
 
 
 const router = express.Router();
-router.use(bodyparser)
-app.use(bodyParser.urlencoded({
-    extended: true
-  }));
+router.use(bodyparser.json())
+
 
 router.post("/blog", async(req,res)=>{
     try{
