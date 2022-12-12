@@ -13,7 +13,7 @@ router.use(bodyparser.json())
  * Register an user
  */
 
-router.post("/register",
+router.post("/",
 body('name').isAlpha(),
 body('email').isEmail(),
 // password must be at least 5 chars long

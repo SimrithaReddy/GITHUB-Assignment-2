@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyparser = require('body-parser')
 const bcrypt = require('bcrypt');
-const users = require('../models/user');
+const users = require('../models/user')
 const { body, validationResult } = require('express-validator');
 var jwt = require('jsonwebtoken');
 const secret = "Assignment"
@@ -14,7 +14,7 @@ router.use(bodyparser.json())
  * Login an user
  */
 
-router.post("/login",
+router.post("/",
     body('email').isEmail(),
     async (req, res) => {
         try {
@@ -39,7 +39,7 @@ router.post("/login",
                 if (result) {
                     const token = jwt.sign({
                         exp: Math.floor(Date.now() / 1000) + (60 * 60),
-                        data: user_data
+                        data: user_data._id
                     }, secret);
 
 
