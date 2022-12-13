@@ -7,9 +7,25 @@ const router = express.Router();
 router.use(bodyparser.json())
 
 
-router.post("/", async(req,res)=>{
-    try{
-        console.log("Hello");
+router.get("/", async (req, res) => {
+    try {
+        let posts = await user_posts.find()
+
+        res.json({
+            status: "Success",
+            posts
+        })
+
+    } catch (e) {
+        res.json({
+            status: "Failed",
+            message: e.message
+        })
+    }
+})
+
+router.post("/", async (req, res) => {
+    try {
         let posts = await user_posts.create({
             title: req.body.title,
             body: req.body.body,
@@ -17,20 +33,28 @@ router.post("/", async(req,res)=>{
             user: req.user,
         })
 
-
-        
-
-//   let user_one = await user_posts.findOne({_id: posts.user._id }).populate("user").then(user => {
-//       console.log(user,"I am user");
-//    });
-//         console.log(user_one, "I am POSTS");
-
         res.json({
             status: "Success",
             posts
         })
 
-    }catch(e){
+    } catch (e) {
+        res.json({
+            status: "Failed",
+            message: e.message
+        })
+    }
+})
+
+router.put("/:id", async (req, res) => {
+    try {
+        await user_posts.updateOne({ _id: req.params.id }, { $set: req.body })
+
+        res.json({
+            status: "Success"
+        })
+
+    } catch (e) {
         res.json({
             status: "Failed",
             message: e.message
@@ -39,5 +63,20 @@ router.post("/", async(req,res)=>{
 })
 
 
+router.delete("/:id", async (req, res) => {
+    try {
+        await user_posts.deleteOne({ _id: req.params.id })
+
+        res.json({
+            status: "Successly Deleted"
+        })
+
+    } catch (e) {
+        res.json({
+            status: "Failed",
+            message: e.message
+        })
+    }
+})
 
 module.exports = router;
